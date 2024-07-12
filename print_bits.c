@@ -33,11 +33,15 @@ void	print_bits(unsigned char octet)
 	}
 }
 
+#include <stdio.h>
+
 int	main(void)
 {
 	unsigned char	octet;
 
 	octet = 115;
+	printf("%d\n", octet);
 	print_bits(octet);
+	printf("\n");
 	return (0);
 }
