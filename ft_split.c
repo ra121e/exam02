@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 22:03:34 by athonda           #+#    #+#             */
-/*   Updated: 2024/07/26 09:39:45 by athonda          ###   ########.fr       */
+/*   Updated: 2024/07/26 15:42:39 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	count_word(char *str)
 				i++;
 		}
 	}
-	return (i);
+	return (count);
 }
 
 char	**ft_split(char *str)
@@ -86,6 +86,7 @@ char	**ft_split(char *str)
 			k++;
 		}
 	}
+	word[k] = NULL;
 	return (word);
 }
 
