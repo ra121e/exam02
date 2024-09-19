@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 07:54:13 by athonda           #+#    #+#             */
-/*   Updated: 2024/09/19 11:12:58 by athonda          ###   ########.fr       */
+/*   Updated: 2024/09/19 11:57:53 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ char	*get_next_line(int fd)
 	static char	buf[BUFFER_SIZE + 1];
 	size_t		len;
 	static char	*p;
-	char		box[1024];
+	char		*box;
 	int			i;
 	int			j;
 
+	box = malloc()
 	i = 0;
 	while (1)
 	{
@@ -48,7 +49,10 @@ char	*get_next_line(int fd)
 			if (len < 0)
 				return (NULL);
 			else if (len == 0)
-				continue ;
+			{
+				box[i] = '\0';
+				return (box);
+			}
 			else if (len > 0)
 			{
 				p = buf;
