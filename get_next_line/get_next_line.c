@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 07:54:13 by athonda           #+#    #+#             */
-/*   Updated: 2024/09/19 09:52:54 by athonda          ###   ########.fr       */
+/*   Updated: 2024/09/19 11:08:04 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ char	*get_next_line(int fd)
 			}
 			if (*p == '\n')
 				return (box);
-			p = NULL;
+			if (p >= buf + len)
+				p = NULL;
 		}
 		else
 		{
