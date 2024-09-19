@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:06:10 by athonda           #+#    #+#             */
-/*   Updated: 2024/09/19 08:12:41 by athonda          ###   ########.fr       */
+/*   Updated: 2024/09/19 09:47:22 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(void)
 		if (!(str))
 			break ;
 		i = 0;
-		while (str)
+		while (*str)
 		{
 			write(1, str, 1);
 			str++;

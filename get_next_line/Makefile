@@ -6,7 +6,7 @@
 #    By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/19 08:24:11 by athonda           #+#    #+#              #
-#    Updated: 2024/09/19 08:45:15 by athonda          ###   ########.fr        #
+#    Updated: 2024/09/19 09:30:57 by athonda          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC		=	get_next_line.c
 
 OBJ		=	$(patsubst %.c, %.o, $(SRC));
 
-FLAGS	=	-D BUFFER_SIZE=5 -g3
+FLAGS	=	-D BUFFER_SIZE=5 -O0 -g3
 
 all: $(NAME)
 
@@ -33,7 +33,7 @@ $(LIB): $(OBJ)
 		ar rcs $@ $?
 
 %.o: %.c $(HEAD)
-		cc -c $< -o $@
+		cc $(FLAGS) -c $< -o $@
 
 clean:
 		rm -f $(OBJ)

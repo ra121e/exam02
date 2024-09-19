@@ -6,7 +6,7 @@
 /*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 07:54:13 by athonda           #+#    #+#             */
-/*   Updated: 2024/09/19 08:15:49 by athonda          ###   ########.fr       */
+/*   Updated: 2024/09/19 09:52:54 by athonda          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,7 @@ char	*get_next_line(int fd)
 			}
 		}
 	}
+	box[i] = '\n';
+	box[i + 1] = '\0';
+	return (box);
 }
