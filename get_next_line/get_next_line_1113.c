@@ -50,13 +50,9 @@ char	*get_next_line(int fd)
 				break ;
 			pos = 0;
 		}
-		line[i] = buf[pos];
-		if (line[i] == '\n')
-		{
-			pos++;
-			i++;
+		if (line[i - 1] == '\n')
 			break ;
-		}
+		line[i] = buf[pos];
 		i++;
 		pos++;
 	}
