@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <stdarg.h>
 #include <unistd.h>
+#include <stdarg.h>
 
 int	ft_putchar(char c, int len)
 {
@@ -8,7 +8,6 @@ int	ft_putchar(char c, int len)
 	len++;
 	return (len);
 }
-
 int	ft_putstr(char *str, int len)
 {
 	if (!str)
@@ -29,6 +28,7 @@ int	ft_putstr(char *str, int len)
 
 int	ft_putnbr(int d, int len)
 {
+	
 	if (d == -2147483648)
 	{
 		write(1, "-2147483648", 11);
@@ -53,16 +53,19 @@ int	ft_putnbr(int d, int len)
 
 int	ft_puthexa(int x, int len)
 {
-	unsigned int	u;
+	unsigned int	u;	
 	char			*hexabase;
 
 	u = (unsigned int)x;
 	hexabase = "0123456789abcdef";
 	if (u == 0)
-		len = ft_putchar('0', len);
+	{
+		write(1, "0", 1);
+		len++;
+	}
 	else if (u <= 15)
 	{
-		len = ft_putchar(hexabase[u], len);
+		len = ft_putchar(hexabase[u % 16], len);
 	}
 	else
 	{
@@ -71,12 +74,11 @@ int	ft_puthexa(int x, int len)
 	}
 	return (len);
 }
+
 int	ft_filter(va_list ap, char c, int len)
 {
 	if (c == 's')
-	{
 		len = ft_putstr(va_arg(ap, char *), len);
-	}
 	else if (c == 'd')
 	{
 		len = ft_putnbr(va_arg(ap, int), len);
@@ -90,12 +92,12 @@ int	ft_filter(va_list ap, char c, int len)
 
 int	ft_printf(char *format, ...)
 {
+	int		i;
 	int		len;
 	va_list	ap;
-	int		i;
 
-	len = 0;
 	va_start(ap, format);
+	len = 0;
 	i = 0;
 	while (format[i])
 	{
@@ -104,7 +106,7 @@ int	ft_printf(char *format, ...)
 			len = ft_filter(ap, format[i + 1], len);
 			i++;
 		}
-		else
+		else 
 		{
 			write(1, &format[i], 1);
 			len++;
@@ -113,20 +115,22 @@ int	ft_printf(char *format, ...)
 	}
 	return (len);
 }
+
 /*
 int	main(void)
-{ 
-	int		len;
-	char	str[] = "hi";
+{
+	char	s[] = "hogehoge";
 	int		d;
 	int		x;
+	int		len;
 
-	d = -1;
+	d = -42;
 	x = -1;
-	len = printf("s: %s d: %d x: %x\n", str, d, x);
+	len = printf("s: %s d: %d x: %x\n", s, d, x);
 	printf("len: %d\n", len);
-	len = ft_printf("s: %s d: %d x: %x\n", str, d, x);
+	len = ft_printf("s: %s d: %d x: %x\n", s, d, x);
 	printf("len: %d\n", len);
+
 	return (0);
 }
 */
