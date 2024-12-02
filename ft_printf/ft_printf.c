@@ -1,131 +1,125 @@
+#include <stdlib.h>
 #include <unistd.h>
 #include <stdarg.h>
 #include <stdio.h>
 
-int	ft_putchar(char c, int len)
+int	ft_putchar(char c, int i)
 {
 	write(1, &c, 1);
-	len++;
-	return (len);
+	i++;
+	return (i);
 }
 
-int	ft_putstr(char *str, int len)
-{
-	int	i;
-
-	if (!str)
-	{
-		write(1, "(null)", 6);
-		len = len + 6;
-	}
-	else
-	{
-		i = 0;
-		while (str[i])
-		{
-			len = ft_putchar(str[i], len);
-			i++;
-		}
-	}
-	return (len);
-}
-
-int	ft_putnbr(int d, int len)
-{
-	if (d == -2147483648)
-	{
-		write(1, "-2147483648", 11);
-		len = len + 11;
-	}
-	else if(d < 0)
-	{
-		len = ft_putchar('-', len);
-		len = ft_putnbr(-d, len);
-	}
-	else if(d >= 0 && d <= 9)
-		len = ft_putchar(d + '0', len);
-	else
-	{
-		len = ft_putnbr(d / 10, len);
-		len = ft_putchar(d % 10 + '0', len);
-	}
-	return (len);
-}
-
-int	ft_puthexa(int x, int len)
+int	ft_found_x(int x, int i)
 {
 	unsigned int	u;
 	char			*hexabase;
 
-	u = (unsigned int)x;
 	hexabase = "0123456789abcdef";
-	if(u == 0)
+	u = (unsigned int)x;
+	if (u == 0)
 	{
-		len = ft_putchar('0', len);
+		write(1, "0", 1);
+		i = i + 1;
 	}
-	else if(u > 0 && u < 16)
-		len = ft_putchar(hexabase[u % 16], len);
+	else if (u <= 15)
+	{
+		i = ft_putchar(hexabase[u], i);
+	}
 	else
 	{
-		len = ft_puthexa(u / 16, len);
-		len = ft_putchar(hexabase[u % 16], len);
+		i = ft_found_x(u / 16, i);
+		i = ft_putchar(hexabase[u % 16], i);
 	}
-
-	return (len);
+	return (i);
 }
 
-int	ft_filter(va_list ap, char c, int len)
+int	ft_found_d(int d, int i)
 {
-	if (c == 's')
-		len = ft_putstr(va_arg(ap, char *), len);
-	else if (c == 'd')
-		len = ft_putnbr(va_arg(ap, int), len);
-	else if (c == 'x')
-		len = ft_puthexa(va_arg(ap, int), len);
-	return (len);
+	if (d == -2147483648)
+	{
+		write(1, "-2147483648", 11);
+		i = i + 11;
+	}
+	else if (d < 0)
+	{
+		write(1, "-", 1);
+		i++;
+		i = ft_found_d(-d, i);
+	}
+	else if (d >= 0 && d <= 9)
+	{
+		i = ft_putchar(d + '0', i);
+	}
+	else
+	{
+		i = ft_found_d(d / 10, i);
+		i = ft_putchar(d % 10 + '0', i);
+	}
+	return (i);
 }
-
+int	ft_found_s(char *s, int i)
+{
+	if (s == NULL)
+		i = ft_found_s("(null)", i);
+	else
+	{
+		while (*s)
+		{
+			write(1, &(*s), 1);
+			i++;
+			s++;
+		}
+	}
+	return (i);
+}
+int	ft_next_percent(char *format, va_list ap, int i, int j)
+{
+	if (format[j] == 's')
+		i = ft_found_s(va_arg(ap, char *), i);
+	else if (format[j] == 'd')
+	{
+		i = ft_found_d(va_arg(ap, int), i);
+	}
+	else if (format[j] == 'x')
+	{
+		i = ft_found_x(va_arg(ap, int), i);
+	}
+	return (i);
+}
 int	ft_printf(char *format, ...)
 {
-	int	i;
 	va_list	ap;
-	int	len;
+	int		i;
+	int		j;
 
-	va_start(ap, format);
-	len = 0;
 	i = 0;
-	while (format[i])
+	j = 0;
+	va_start(ap, format);
+	while (format[j])
 	{
-		if (format[i] == '%')
+		if (format[j] == '%')
 		{
-			len = ft_filter(ap, format[i + 1], len);
-			i++;
+			i = ft_next_percent(format, ap, i, ++j);
 		}
 		else
 		{
-			write(1, &format[i], 1);
-			len++;
+			write(1, &format[j], 1);
+			i++;
 		}
-		i++;
+		j++;
 	}
-	return (len);
+	va_end(ap);
+	return (i);
 }
 /*
 int	main(void)
 {
-	int	len;
-	char	str[] = "hoge";
-	char	*str2;
-	int	d;
-	int	x;
+	int	i;
 
-	str2 = NULL;
-	d = 42;
-	x = -1;
-	len = printf("s: %s d: %d x: %x\n", str2, d, x);
-	printf("len: %d\n", len);
-	len = ft_printf("s: %s d: %d x: %x\n", str2, d, x);
-	printf("len: %d\n", len);
+	char	str[] = "hohoho";
+	printf("printf: hello 42\n: s: %s, d: %d x: %x\n", str, -42, 42);
+	ft_printf("ft_printf: hello 42\n: s: %s, d: %d x: %x\n", str, -42, 42);
 	return (0);
 }
 */
