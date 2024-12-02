@@ -1,3 +1,5 @@
 gnl
 libgnl.a
 *.o
+gnl02
+test*
