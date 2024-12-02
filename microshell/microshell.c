@@ -16,12 +16,15 @@ int	builtin_cd(char *av[], int i)
 		err("error: cd: bad arguments\n");
 		return (1);
 	}
-	if (chdir(av[1]) == -1)
+	else
 	{
-		err("error: cd: cannot change directory ");
-		err(av[1]);
-		err("\n");
-		return (1);
+		if (chdir(av[1]) == -1)
+		{
+			err("error: cd: cannot change directory to ");
+			err(av[1]);
+			err("\n");
+			return (1);
+		}
 	}
 	return (0);
 }
@@ -48,19 +51,17 @@ void	set_fd(int to_pipe, int fd[2], int end)
 	}
 }
 
-int	exec(char **av, int i, char **envp)
+int	exec(char *av[], int i, char *envp[])
 {
-	int	pid;
 	int	status;
-	int to_pipe;
+	int	to_pipe;
 	int	fd[2];
+	int	pid;
 
 	to_pipe = 0;
 	if (av[i] && !strcmp(av[i], "|"))
-	{
 		to_pipe = 1;
-	}
-	if (!to_pipe && !strcmp(av[0], "cd"))
+	if (!to_pipe && av[0] && !strcmp(av[0], "cd"))
 	{
 		status = builtin_cd(av, i);
 		return (status);
@@ -79,20 +80,15 @@ int	exec(char **av, int i, char **envp)
 		err("error: fatal\n");
 		exit(1);
 	}
-	if (!pid)
+	else if (pid == 0)
 	{
 		av[i] = 0;
 		set_fd(to_pipe, fd, 1);
-		if (!strcmp(av[0], "cd"))
-		{
-			status = builtin_cd(av, i);
-			exit (status);
-		}
 		execve(av[0], av, envp);
 		err("error: cannot execute ");
 		err(av[0]);
 		err("\n");
-		exit(1);
+		exit (1);
 	}
 	waitpid(pid, &status, 0);
 	set_fd(to_pipe, fd, 0);
@@ -115,7 +111,6 @@ int	main(int ac, char **av, char **envp)
 			i++;
 		if (i)
 			status = exec(av, i, envp);
-
 	}
 	return (status);
 }
