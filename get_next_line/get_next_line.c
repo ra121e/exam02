@@ -1,31 +1,25 @@
-#include <stdlib.h>
-#include <unistd.h>
 #include <stdio.h>
 #include <fcntl.h>
-
+#include <stdlib.h>
+#include <unistd.h>
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 5
+# define BUFFER_SIZE 42
 #endif
 
 char	*ft_strdup(char *src)
 {
 	char	*dest;
-	int		len;
 	int		i;
 
-	len = 0;
-	while (src[len])
-		len++;
-	dest = (char *)malloc(sizeof (char) * (len + 1));
-	if (dest == NULL)
+	i = 0;
+	while (src[i++])
+	dest = (char *)malloc(sizeof (char) * i + 1);
+	if (!dest)
 		return (NULL);
 	i = 0;
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
+	while (*src)
+		dest[i++] = *src++;
+	dest[i] = 0;
 	return (dest);
 }
 
@@ -34,12 +28,10 @@ char	*get_next_line(int fd)
 	static int	len;
 	static char	buf[BUFFER_SIZE + 1];
 	int			i;
-	char		line[100000];
 	static int	pos;
+	char		line[100000];
 	char		*str;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
 	i = 0;
 	while (1)
 	{
@@ -53,33 +45,33 @@ char	*get_next_line(int fd)
 		line[i] = buf[pos];
 		if (line[i] == '\n')
 		{
-			pos++;
 			i++;
+			pos++;
 			break ;
 		}
 		i++;
 		pos++;
 	}
-	line[i] = '\0';
+	line[i] = 0;
 	if (i == 0)
 		return (NULL);
 	str = ft_strdup(line);
 	return (str);
 }
+
 /*
 int	main(void)
 {
 	int	fd;
-	char	*path;
+	char path[] = "test.txt";
 	char	*str;
 
-	path = "test.txt";
 	fd = open(path, O_RDONLY);
 	while (1)
 	{
-		if (str == NULL)
-			break ;
 		str = get_next_line(fd);
+		if (!str)
+			break ;
 		printf("%s", str);
 	}
 	close(fd);
