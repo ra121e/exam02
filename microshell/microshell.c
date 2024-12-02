@@ -1,5 +1,5 @@
-#include <stdlib.h>
 #include <sys/wait.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 
@@ -9,22 +9,19 @@ void	err(char *str)
 		write(2, str++, 1);
 }
 
-int	builtin_cd(char *av[], int i)
+int	builtin_cd(char **av, int i)
 {
 	if (i != 2)
 	{
 		err("error: cd: bad arguments\n");
 		return (1);
 	}
-	else
+	if (chdir(av[1]) == -1)
 	{
-		if (chdir(av[1]) == -1)
-		{
-			err("error: cd: cannot change directory to ");
-			err(av[1]);
-			err("\n");
-			return (1);
-		}
+		err("error: cd: cannot change directory to ");
+		err(av[1]);
+		err("\n");
+		return (1);
 	}
 	return (0);
 }
@@ -38,12 +35,12 @@ void	set_fd(int to_pipe, int fd[2], int end)
 			err("error: fatal\n");
 			exit(1);
 		}
-		if (close(fd[0]) == -1)
+		if (close(fd[0]))
 		{
 			err("error: fatal\n");
 			exit(1);
 		}
-		if (close(fd[1]) == -1)
+		if (close(fd[1]))
 		{
 			err("error: fatal\n");
 			exit(1);
@@ -51,7 +48,7 @@ void	set_fd(int to_pipe, int fd[2], int end)
 	}
 }
 
-int	exec(char *av[], int i, char *envp[])
+int	exec(char **av, int i, char **envp)
 {
 	int	status;
 	int	to_pipe;
@@ -61,18 +58,15 @@ int	exec(char *av[], int i, char *envp[])
 	to_pipe = 0;
 	if (av[i] && !strcmp(av[i], "|"))
 		to_pipe = 1;
-	if (!to_pipe && av[0] && !strcmp(av[0], "cd"))
+	if (pipe(fd) == -1)
+	{
+		err("error: fatal\n");
+		exit(1);
+	}
+	if (!to_pipe && !strcmp(av[0], "cd"))
 	{
 		status = builtin_cd(av, i);
 		return (status);
-	}
-	if (to_pipe)
-	{
-		if (pipe(fd) == -1)
-		{
-			err("error: fatal\n");
-			exit(1);
-		}
 	}
 	pid = fork();
 	if (pid < 0)
@@ -88,7 +82,7 @@ int	exec(char *av[], int i, char *envp[])
 		err("error: cannot execute ");
 		err(av[0]);
 		err("\n");
-		exit (1);
+		exit(1);
 	}
 	waitpid(pid, &status, 0);
 	set_fd(to_pipe, fd, 0);
