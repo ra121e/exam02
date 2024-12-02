@@ -8,6 +8,7 @@ int	ft_putchar(char c, int len)
 	len++;
 	return (len);
 }
+
 int	ft_putstr(char *str, int len)
 {
 	if (!str)
@@ -23,12 +24,11 @@ int	ft_putstr(char *str, int len)
 			str++;
 		}
 	}
-	return (len);
+	return (len);	
 }
 
 int	ft_putnbr(int d, int len)
 {
-	
 	if (d == -2147483648)
 	{
 		write(1, "-2147483648", 11);
@@ -53,17 +53,17 @@ int	ft_putnbr(int d, int len)
 
 int	ft_puthexa(int x, int len)
 {
-	unsigned int	u;	
+	unsigned int	u;
 	char			*hexabase;
 
-	u = (unsigned int)x;
 	hexabase = "0123456789abcdef";
+	u = (unsigned int)x;
 	if (u == 0)
 	{
 		write(1, "0", 1);
-		len++;
+		len = len + 1;
 	}
-	else if (u <= 15)
+	else if (u < 16)
 	{
 		len = ft_putchar(hexabase[u % 16], len);
 	}
@@ -78,22 +78,24 @@ int	ft_puthexa(int x, int len)
 int	ft_filter(va_list ap, char c, int len)
 {
 	if (c == 's')
-		len = ft_putstr(va_arg(ap, char *), len);
+	{
+		len = ft_putstr(va_arg(ap, char *), len);	
+	}
 	else if (c == 'd')
 	{
-		len = ft_putnbr(va_arg(ap, int), len);
+		len = ft_putnbr(va_arg(ap, int), len);	
 	}
 	else if (c == 'x')
 	{
-		len = ft_puthexa(va_arg(ap, int), len);
+		len = ft_puthexa(va_arg(ap, int), len);	
 	}
 	return (len);
 }
 
 int	ft_printf(char *format, ...)
 {
-	int		i;
 	int		len;
+	int		i;
 	va_list	ap;
 
 	va_start(ap, format);
@@ -106,7 +108,7 @@ int	ft_printf(char *format, ...)
 			len = ft_filter(ap, format[i + 1], len);
 			i++;
 		}
-		else 
+		else
 		{
 			write(1, &format[i], 1);
 			len++;
@@ -119,18 +121,18 @@ int	ft_printf(char *format, ...)
 /*
 int	main(void)
 {
-	char	s[] = "hogehoge";
+	char	str[] = "hogehoge";
 	int		d;
 	int		x;
 	int		len;
 
-	d = -42;
+	len = 0;
+	d = 2147483647;
 	x = -1;
-	len = printf("s: %s d: %d x: %x\n", s, d, x);
+	len = printf("s: %s d: %d x: %x\n", str, d, x);
 	printf("len: %d\n", len);
-	len = ft_printf("s: %s d: %d x: %x\n", s, d, x);
+	len = ft_printf("s: %s d: %d x: %x\n", str, d, x);
 	printf("len: %d\n", len);
-
 	return (0);
 }
 */
