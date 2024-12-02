@@ -1,6 +1,6 @@
-#include <stdio.h>
 #include <unistd.h>
 #include <stdarg.h>
+#include <stdio.h>
 
 int	ft_putchar(char c, int len)
 {
@@ -9,8 +9,10 @@ int	ft_putchar(char c, int len)
 	return (len);
 }
 
-int	ft_putstr(char *str, int len)
+int	ft_putstr(char	*str, int len)
 {
+	int	i;
+
 	if (!str)
 	{
 		write(1, "(null)", 6);
@@ -18,13 +20,14 @@ int	ft_putstr(char *str, int len)
 	}
 	else
 	{
-		while (*str)
+		i = 0;
+		while (str[i])
 		{
-			len = ft_putchar(*str, len);
-			str++;
+			len = ft_putchar(str[i], len);
+			i++;
 		}
 	}
-	return (len);	
+	return (len);
 }
 
 int	ft_putnbr(int d, int len)
@@ -40,9 +43,7 @@ int	ft_putnbr(int d, int len)
 		len = ft_putnbr(-d, len);
 	}
 	else if (d >= 0 && d <= 9)
-	{
 		len = ft_putchar(d + '0', len);
-	}
 	else
 	{
 		len = ft_putnbr(d / 10, len);
@@ -56,14 +57,11 @@ int	ft_puthexa(int x, int len)
 	unsigned int	u;
 	char			*hexabase;
 
-	hexabase = "0123456789abcdef";
 	u = (unsigned int)x;
+	hexabase = "0123456789abcdef";
 	if (u == 0)
-	{
-		write(1, "0", 1);
-		len = len + 1;
-	}
-	else if (u < 16)
+		len = ft_putchar('0', len);
+	else if (u > 0 && u < 16)
 	{
 		len = ft_putchar(hexabase[u % 16], len);
 	}
@@ -78,25 +76,19 @@ int	ft_puthexa(int x, int len)
 int	ft_filter(va_list ap, char c, int len)
 {
 	if (c == 's')
-	{
-		len = ft_putstr(va_arg(ap, char *), len);	
-	}
+		len = ft_putstr(va_arg(ap, char *), len);
 	else if (c == 'd')
-	{
-		len = ft_putnbr(va_arg(ap, int), len);	
-	}
+		len = ft_putnbr(va_arg(ap, int), len);
 	else if (c == 'x')
-	{
-		len = ft_puthexa(va_arg(ap, int), len);	
-	}
+		len = ft_puthexa(va_arg(ap, int), len);
 	return (len);
 }
 
 int	ft_printf(char *format, ...)
 {
 	int		len;
-	int		i;
 	va_list	ap;
+	int		i;
 
 	va_start(ap, format);
 	len = 0;
@@ -121,13 +113,12 @@ int	ft_printf(char *format, ...)
 /*
 int	main(void)
 {
-	char	str[] = "hogehoge";
+	char	str[] = "hoge";
 	int		d;
 	int		x;
 	int		len;
 
-	len = 0;
-	d = 2147483647;
+	d = -2147483648;
 	x = -1;
 	len = printf("s: %s d: %d x: %x\n", str, d, x);
 	printf("len: %d\n", len);
