@@ -50,16 +50,15 @@ int	builtin_cd(char **av, int i)
 
 int	exec(char **av, int i, char **envp)
 {
-	int	status;
-	int	pid;
 	int	to_pipe;
+	int	pid;
+	int	status;
 	int	fd[2];
 
-	status = 0;
 	to_pipe = 0;
 	if (av[i] && !strcmp(av[i], "|"))
 		to_pipe = 1;
-	if (!to_pipe && !strcmp(av[0], "cd"))
+	if (!to_pipe && av[0] && !strcmp(av[0], "cd"))
 	{
 		status = builtin_cd(av, i);
 		return (status);
@@ -90,7 +89,7 @@ int	exec(char **av, int i, char **envp)
 	}
 	waitpid(pid, &status, 0);
 	set_fd(to_pipe, fd, 0);
-	return (WEXITSTATUS(status));
+	return (0);
 }
 
 int	main(int ac, char **av, char **envp)
