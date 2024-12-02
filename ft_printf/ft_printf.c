@@ -9,7 +9,7 @@ int	ft_putchar(char c, int len)
 	return (len);
 }
 
-int	ft_putstr(char	*str, int len)
+int	ft_putstr(char *str, int len)
 {
 	int	i;
 
@@ -37,12 +37,12 @@ int	ft_putnbr(int d, int len)
 		write(1, "-2147483648", 11);
 		len = len + 11;
 	}
-	else if (d < 0)
+	else if(d < 0)
 	{
 		len = ft_putchar('-', len);
 		len = ft_putnbr(-d, len);
 	}
-	else if (d >= 0 && d <= 9)
+	else if(d >= 0 && d <= 9)
 		len = ft_putchar(d + '0', len);
 	else
 	{
@@ -59,17 +59,18 @@ int	ft_puthexa(int x, int len)
 
 	u = (unsigned int)x;
 	hexabase = "0123456789abcdef";
-	if (u == 0)
-		len = ft_putchar('0', len);
-	else if (u > 0 && u < 16)
+	if(u == 0)
 	{
-		len = ft_putchar(hexabase[u % 16], len);
+		len = ft_putchar('0', len);
 	}
+	else if(u > 0 && u < 16)
+		len = ft_putchar(hexabase[u % 16], len);
 	else
 	{
 		len = ft_puthexa(u / 16, len);
 		len = ft_putchar(hexabase[u % 16], len);
 	}
+
 	return (len);
 }
 
@@ -86,9 +87,9 @@ int	ft_filter(va_list ap, char c, int len)
 
 int	ft_printf(char *format, ...)
 {
-	int		len;
+	int	i;
 	va_list	ap;
-	int		i;
+	int	len;
 
 	va_start(ap, format);
 	len = 0;
@@ -109,20 +110,21 @@ int	ft_printf(char *format, ...)
 	}
 	return (len);
 }
-
 /*
 int	main(void)
 {
+	int	len;
 	char	str[] = "hoge";
-	int		d;
-	int		x;
-	int		len;
+	char	*str2;
+	int	d;
+	int	x;
 
-	d = -2147483648;
+	str2 = NULL;
+	d = 42;
 	x = -1;
-	len = printf("s: %s d: %d x: %x\n", str, d, x);
+	len = printf("s: %s d: %d x: %x\n", str2, d, x);
 	printf("len: %d\n", len);
-	len = ft_printf("s: %s d: %d x: %x\n", str, d, x);
+	len = ft_printf("s: %s d: %d x: %x\n", str2, d, x);
 	printf("len: %d\n", len);
 	return (0);
 }
