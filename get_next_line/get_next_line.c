@@ -1,24 +1,25 @@
-#include <stdlib.h>
-#include <unistd.h>
 #include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
 #include <fcntl.h>
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 5
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5
+# endif
 #endif
 
 char	*ft_strdup(char *src)
 {
 	char	*dest;
-	int		len;
 	int		i;
+	int		len;
 
 	len = 0;
 	while (src[len])
 		len++;
-	dest = (char *)malloc(sizeof (char) * (len + 1));
-	if (dest == NULL)
-		return (NULL);
+	dest = (char *)malloc(sizeof (char) + (len + 1));
 	i = 0;
 	while (src[i])
 	{
@@ -32,41 +33,37 @@ char	*ft_strdup(char *src)
 char	*get_next_line(int fd)
 {
 	static int	len;
-	static char	buf[BUFFER_SIZE + 1];
-	int			i;
-	char		line[100000];
 	static int	pos;
+	static char	buf[BUFFER_SIZE + 1];
+	char		line[100000];
 	char		*str;
+	int			i;
 
+	i = 0;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	i = 0;
 	while (1)
 	{
 		if (pos >= len)
 		{
 			len = read(fd, buf, BUFFER_SIZE);
+			pos = 0;
 			if (len <= 0)
 				break ;
-			pos = 0;
 		}
-		line[i] = buf[pos];
 		if (line[i] == '\n')
-		{
-			pos++;
-			i++;
 			break ;
-		}
+		line[i] = buf[pos];
 		i++;
 		pos++;
 	}
-	line[i] = '\0';
+	line[i + 1] = '\0';
 	if (i == 0)
 		return (NULL);
 	str = ft_strdup(line);
 	return (str);
 }
-/*
+
 int	main(void)
 {
 	int	fd;
@@ -77,12 +74,13 @@ int	main(void)
 	fd = open(path, O_RDONLY);
 	while (1)
 	{
-		if (str == NULL)
-			break ;
 		str = get_next_line(fd);
+		if (!str)
+			break ;
 		printf("%s", str);
 	}
 	close(fd);
+	free(str);
 	return (0);
 }
-*/
+
