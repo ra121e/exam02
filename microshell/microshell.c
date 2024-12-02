@@ -9,6 +9,28 @@ void	err(char *str)
 		write(2, str++, 1);
 }
 
+void	set_fd(int to_pipe, int fd[2], int end)
+{
+	if (to_pipe)
+	{
+		if (dup2(fd[end], end) == -1)
+		{
+			err("error: fatal\n");
+			exit(1);
+		}
+		if (close(fd[0]) == -1)
+		{
+			err("error: fatal\n");
+			exit(1);
+		}
+		if (close(fd[1]) == -1)
+		{
+			err("error: fatal\n");
+			exit(1);
+		}
+	}
+}
+
 int	builtin_cd(char **av, int i)
 {
 	if (i != 2)
@@ -26,47 +48,29 @@ int	builtin_cd(char **av, int i)
 	return (0);
 }
 
-void	set_fd(int to_pipe, int fd[2], int end)
-{
-	if (to_pipe)
-	{
-		if (dup2(fd[end], end) == -1)
-		{
-			err("error: fatal\n");
-			exit(1);
-		}
-		if (close(fd[0]))
-		{
-			err("error: fatal\n");
-			exit(1);
-		}
-		if (close(fd[1]))
-		{
-			err("error: fatal\n");
-			exit(1);
-		}
-	}
-}
-
 int	exec(char **av, int i, char **envp)
 {
 	int	status;
+	int	pid;
 	int	to_pipe;
 	int	fd[2];
-	int	pid;
 
+	status = 0;
 	to_pipe = 0;
 	if (av[i] && !strcmp(av[i], "|"))
 		to_pipe = 1;
-	if (pipe(fd) == -1)
-	{
-		err("error: fatal\n");
-		exit(1);
-	}
 	if (!to_pipe && !strcmp(av[0], "cd"))
 	{
 		status = builtin_cd(av, i);
 		return (status);
+	}
+	if (to_pipe)
+	{
+		if (pipe(fd) == -1)
+		{
+			err("error: fatal\n");
+			exit(1);
+		}
 	}
 	pid = fork();
 	if (pid < 0)
@@ -99,7 +103,7 @@ int	main(int ac, char **av, char **envp)
 	i = 0;
 	while (av[i])
 	{
-		av = av + i + 1;
+		av = av + 1 + i;
 		i = 0;
 		while (av[i] && strcmp(av[i], "|") && strcmp(av[i], ";"))
 			i++;
