@@ -6,7 +6,7 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
+#  define BUFFER_SIZE 5 
 # endif
 #endif
 
@@ -24,7 +24,7 @@ char	*ft_strdup(char *src)
 	while (src[i])
 	{
 		dest[i] = src[i];
-		i++;
+		i++;	
 	}
 	dest[i] = '\0';
 	return (dest);
@@ -51,13 +51,13 @@ char	*get_next_line(int fd)
 			if (len <= 0)
 				break ;
 		}
-		if (line[i] == '\n')
+		if (line[i - 1] == '\n')
 			break ;
 		line[i] = buf[pos];
 		i++;
 		pos++;
-	}
-	line[i + 1] = '\0';
+	}	
+	line[i] = '\0';
 	if (i == 0)
 		return (NULL);
 	str = ft_strdup(line);
