@@ -1,5 +1,6 @@
-#include <sys/wait.h>
+#include <fcntl.h>
 #include <stdlib.h>
+#include <sys/wait.h>
 #include <unistd.h>
 #include <string.h>
 
@@ -50,11 +51,12 @@ int	builtin_cd(char **av, int i)
 
 int	exec(char **av, int i, char **envp)
 {
-	int	to_pipe;
 	int	pid;
 	int	status;
+	int	to_pipe;
 	int	fd[2];
 
+	status = 0;
 	to_pipe = 0;
 	if (av[i] && !strcmp(av[i], "|"))
 		to_pipe = 1;
@@ -89,7 +91,7 @@ int	exec(char **av, int i, char **envp)
 	}
 	waitpid(pid, &status, 0);
 	set_fd(to_pipe, fd, 0);
-	return (0);
+	return (WEXITSTATUS(status));
 }
 
 int	main(int ac, char **av, char **envp)
@@ -102,7 +104,7 @@ int	main(int ac, char **av, char **envp)
 	i = 0;
 	while (av[i])
 	{
-		av = av + 1 + i;
+		av = av + i + 1;
 		i = 0;
 		while (av[i] && strcmp(av[i], "|") && strcmp(av[i], ";"))
 			i++;
