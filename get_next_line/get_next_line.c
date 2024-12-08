@@ -1,7 +1,8 @@
-#include <stdio.h>
-#include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <fcntl.h>
+#include <stdio.h>
+
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 42
 #endif
@@ -9,27 +10,29 @@
 char	*ft_strdup(char *src)
 {
 	char	*dest;
+	int		len;
 	int		i;
 
-	i = 0;
-	while (src[i++])
-	dest = (char *)malloc(sizeof (char) * i + 1);
+	len = 0;
+	while (src[len])
+		len++;
+	dest = (char *)malloc(sizeof (char) * (len + 1));
 	if (!dest)
 		return (NULL);
-	i = 0;
-	while (*src)
-		dest[i++] = *src++;
-	dest[i] = 0;
+	i = -1;
+	while (src[++i])
+		dest[i] = src[i];
+	dest[i] = '\0';
 	return (dest);
 }
 
 char	*get_next_line(int fd)
 {
+	int			i;
+	char		line[10000];
 	static int	len;
 	static char	buf[BUFFER_SIZE + 1];
-	int			i;
 	static int	pos;
-	char		line[100000];
 	char		*str;
 
 	i = 0;
@@ -42,17 +45,20 @@ char	*get_next_line(int fd)
 				break ;
 			pos = 0;
 		}
-		line[i] = buf[pos];
-		if (line[i] == '\n')
+		else
 		{
+			line[i] = buf[pos];
+			if (line[i] == '\n')
+			{
+				i++;
+				pos++;
+				break ;
+			}
 			i++;
 			pos++;
-			break ;
 		}
-		i++;
-		pos++;
 	}
-	line[i] = 0;
+	line[i] = '\0';
 	if (i == 0)
 		return (NULL);
 	str = ft_strdup(line);
@@ -63,9 +69,10 @@ char	*get_next_line(int fd)
 int	main(void)
 {
 	int	fd;
-	char path[] = "test.txt";
+	char	*path;
 	char	*str;
 
+	path = "./test";
 	fd = open(path, O_RDONLY);
 	while (1)
 	{
@@ -74,7 +81,6 @@ int	main(void)
 			break ;
 		printf("%s", str);
 	}
-	close(fd);
 	return (0);
 }
 */
