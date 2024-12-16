@@ -1,5 +1,5 @@
-#include <sys/wait.h>
 #include <stdlib.h>
+#include <sys/wait.h>
 #include <unistd.h>
 #include <string.h>
 
@@ -52,8 +52,8 @@ int	exec(char **av, int i, char **envp)
 {
 	int	status;
 	int	pid;
-	int	fd[2];
 	int	to_pipe;
+	int	fd[2];
 
 	to_pipe = 0;
 	if (av[i] && !strcmp(av[i], "|"))
@@ -63,7 +63,7 @@ int	exec(char **av, int i, char **envp)
 		status = builtin_cd(av, i);
 		return (status);
 	}
-	if (to_pipe == 1)
+	if (to_pipe)
 	{
 		if (pipe(fd) < 0)
 		{
@@ -94,10 +94,11 @@ int	exec(char **av, int i, char **envp)
 
 int	main(int ac, char **av, char **envp)
 {
-	int	status;
 	int	i;
+	int	status;
 
 	(void)ac;
+	status = 0;
 	i = 0;
 	while (av[i])
 	{
