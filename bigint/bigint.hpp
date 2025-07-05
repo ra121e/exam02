@@ -1,0 +1,26 @@
+#ifndef BIGINT_HPP
+# define BIGINT_HPP
+
+# include <string>
+# include <iostream>
+
+
+class bigint
+{
+	public:
+		bigint();
+		bigint(unsigned long long n);
+		bigint(std::string &s);
+		bigint(bigint const &other);
+		bigint	&operator=(bigint const &other);
+		~bigint();
+
+		std::string const	&getter(void) const;
+
+	private:
+		std::string _value;
+};
+
+std::ostream	&operator<<(std::ostream &os, bigint const &other);
+
+#endif
