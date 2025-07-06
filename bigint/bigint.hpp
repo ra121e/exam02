@@ -10,7 +10,7 @@ class bigint
 	public:
 		bigint();
 		bigint(unsigned long long n);
-		bigint(std::string &s);
+		bigint(std::string const &s);
 		bigint(bigint const &other);
 		bigint	&operator=(bigint const &other);
 		~bigint();
@@ -20,6 +20,7 @@ class bigint
 		bigint	operator+(bigint const &other);
 	private:
 		std::string _value;
+		std::string	add(std::string num1, std::string num2);
 };
 
 std::ostream	&operator<<(std::ostream &os, bigint const &other);

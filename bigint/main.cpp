@@ -9,7 +9,9 @@ int	main(void)
 
 	std::cout << "a = " << a << std::endl;
 	std::cout << "b = " << b << std::endl;
-	std::cout << "a + b = " << d + b << std::endl;
+	std::cout << "c = " << c << std::endl;
+	std::cout << "d = " << d << std::endl;
+	std::cout << "d + b = " << d + b << std::endl;
 
 	return (0);
 }
