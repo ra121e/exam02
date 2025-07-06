@@ -83,6 +83,20 @@ bigint	&bigint::operator+=(unsigned long long n)
 	this->_value = add(this->_value, other._value);
 	return (*this);
 }
+
+bigint	&bigint::operator++(void)
+{
+	*this += 1;
+	return (*this);
+}
+
+bigint	bigint::operator++(int)
+{
+	bigint	tmp = *this;
+	*this += 1;
+	return (tmp);
+}
+
 std::ostream	&operator<<(std::ostream &os, bigint const &other)
 {
 	os << other.getter();

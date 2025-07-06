@@ -16,5 +16,9 @@ int	main(void)
 	std::cout << "a + 42 = " << a + 42 << std::endl;
 	std::cout << "(c += a) = " << (c += a) << std::endl;
 	std::cout << "(b += e) = " << (b += e) << std::endl;
+	std::cout << "b = " << b << std::endl; // b = 21
+	std::cout << "++b = " << ++b << std::endl; // ++b = 22
+	std::cout << "b++ = " << b++ << std::endl; // b++ = 22 (après cette ligne b = 23)
+	std::cout << "b = " << b << std::endl; // b = 21
 	return (0);
 }
