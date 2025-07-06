@@ -44,15 +44,12 @@ std::string	bigint::add(std::string num1, std::string num2)
 	std::string::reverse_iterator itb = num2.rbegin();
 	while (ita != num1.rend() || itb != num2.rend() || carry)
 	{
-		unsigned long a = 0;
-		unsigned long b = 0;
 		if (ita != num1.rend())
-			a = *ita++ - '0';
+			unsigned long a = *ita++ - '0';
 		if (itb != num2.rend())
-			b = *itb++ - '0';
+			unsigned long b = *itb++ - '0';
 		unsigned long sum = a + b + carry;
-		if (sum / 10 == 1)
-			carry = 1;
+		carry = sum / 10;
 		result.push_back(sum % 10 + '0');
 	}
 	std::reverse(result.begin(), result.end());
