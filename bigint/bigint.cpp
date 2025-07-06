@@ -110,6 +110,34 @@ bool	bigint::operator!=(bigint const &other)
 		return (true);
 	return (false);
 }
+
+bool	bigint::operator<(bigint const &other)
+{
+	if (this->_value < other._value)
+		return (true);
+	return (false);
+}
+
+bool	bigint::operator<=(bigint const &other)
+{
+	if (this->_value <= other._value)
+		return (true);
+	return (false);
+}
+
+bool	bigint::operator>(bigint const &other)
+{
+	if (this->_value > other._value)
+		return (true);
+	return (false);
+}
+
+bool	bigint::operator>=(bigint const &other)
+{
+	if (this->_value >= other._value)
+		return (true);
+	return (false);
+}
 std::ostream	&operator<<(std::ostream &os, bigint const &other)
 {
 	os << other.getter();
