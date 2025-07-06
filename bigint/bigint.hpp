@@ -17,10 +17,10 @@ class bigint
 
 		std::string const	&getter(void) const;
 
-		bigint	operator+(bigint const &other);
+		bigint	operator+(bigint const &other) const;
 	private:
 		std::string _value;
-		std::string	add(std::string num1, std::string num2);
+		static std::string	add(std::string num1, std::string num2);
 };
 
 std::ostream	&operator<<(std::ostream &os, bigint const &other);

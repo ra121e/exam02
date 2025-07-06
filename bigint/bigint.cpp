@@ -58,7 +58,7 @@ std::string	bigint::add(std::string num1, std::string num2)
 	return (result);
 }
 
-bigint	bigint::operator+(bigint const &other)
+bigint	bigint::operator+(bigint const &other) const
 {
 	bigint	result(add(this->_value, other._value));
 	return (result);
