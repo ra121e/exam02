@@ -97,46 +97,40 @@ bigint	bigint::operator++(int)
 	return (tmp);
 }
 
-bool	bigint::operator==(bigint const &other)
+bool	bigint::operator==(bigint const &other) const
 {
 	if (this->_value == other._value)
 		return (true);
 	return (false);
 }
 
-bool	bigint::operator!=(bigint const &other)
+bool	bigint::operator!=(bigint const &other) const
 {
 	if (this->_value != other._value)
 		return (true);
 	return (false);
 }
 
-bool	bigint::operator<(bigint const &other)
+bool	bigint::operator<(bigint const &other) const
 {
-	if (this->_value < other._value)
-		return (true);
-	return (false);
+	if (this->_value.size() != other._value.size())
+		return (this->_value.size() < other._value.size());
+	return (this->_value < other._value);
 }
 
-bool	bigint::operator<=(bigint const &other)
+bool	bigint::operator<=(bigint const &other) const
 {
-	if (this->_value <= other._value)
-		return (true);
-	return (false);
+	return (!(other < *this));
 }
 
-bool	bigint::operator>(bigint const &other)
+bool	bigint::operator>(bigint const &other) const
 {
-	if (this->_value > other._value)
-		return (true);
-	return (false);
+	return (other < *this);
 }
 
-bool	bigint::operator>=(bigint const &other)
+bool	bigint::operator>=(bigint const &other) const
 {
-	if (this->_value >= other._value)
-		return (true);
-	return (false);
+	return (!(*this < other));
 }
 std::ostream	&operator<<(std::ostream &os, bigint const &other)
 {

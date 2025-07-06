@@ -23,12 +23,12 @@ class bigint
 		bigint	&operator+=(unsigned long long n);
 		bigint	&operator++(void);
 		bigint	operator++(int);
-		bool	operator==(bigint const &other);
-		bool	operator!=(bigint const &other);
-		bool	operator<(bigint const &other);
-		bool	operator<=(bigint const &other);
-		bool	operator>(bigint const &other);
-		bool	operator>=(bigint const &other);
+		bool	operator==(bigint const &other) const;
+		bool	operator!=(bigint const &other) const;
+		bool	operator<(bigint const &other) const;
+		bool	operator<=(bigint const &other) const;
+		bool	operator>(bigint const &other) const;
+		bool	operator>=(bigint const &other) const;
 	private:
 		std::string _value;
 		static std::string	add(std::string num1, std::string num2);
