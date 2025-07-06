@@ -13,6 +13,8 @@ int	main(void)
 	std::cout << "d = " << d << std::endl;
 	std::cout << "a + b = " << a + b << std::endl;
 	std::cout << "b + a = " << b + a << std::endl;
+	std::cout << "a + 42 = " << a + 42 << std::endl;
+//	std::cout << "42 + a = " << 42 + a << std::endl;
 
 	return (0);
 }

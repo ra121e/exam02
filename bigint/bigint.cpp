@@ -64,6 +64,12 @@ bigint	bigint::operator+(bigint const &other) const
 	return (result);
 }
 
+bigint	bigint::operator+(unsigned long long n) const
+{
+	bigint	other(n);
+	bigint	result(add(this->_value, other._value));
+	return (result);
+}
 
 std::ostream	&operator<<(std::ostream &os, bigint const &other)
 {
