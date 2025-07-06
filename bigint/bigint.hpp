@@ -17,6 +17,7 @@ class bigint
 
 		std::string const	&getter(void) const;
 
+		bigint	operator+(bigint const &other);
 	private:
 		std::string _value;
 };
