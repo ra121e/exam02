@@ -14,7 +14,7 @@ int	main(void)
 	std::cout << "a + b = " << a + b << std::endl;
 	std::cout << "b + a = " << b + a << std::endl;
 	std::cout << "a + 42 = " << a + 42 << std::endl;
-//	std::cout << "42 + a = " << 42 + a << std::endl;
-
+	std::cout << "(c += a) = " << (c += a) << std::endl;
+	std::cout << "(b += e) = " << (b += e) << std::endl;
 	return (0);
 }

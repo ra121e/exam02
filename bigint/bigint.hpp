@@ -19,6 +19,8 @@ class bigint
 
 		bigint	operator+(bigint const &other) const;
 		bigint	operator+(unsigned long long n) const;
+		bigint	&operator+=(bigint const &other);
+		bigint	&operator+=(unsigned long long n);
 	private:
 		std::string _value;
 		static std::string	add(std::string num1, std::string num2);

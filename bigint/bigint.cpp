@@ -71,6 +71,18 @@ bigint	bigint::operator+(unsigned long long n) const
 	return (result);
 }
 
+bigint	&bigint::operator+=(bigint const &other)
+{
+	this->_value = add(this->_value, other._value);
+	return (*this);
+}
+
+bigint	&bigint::operator+=(unsigned long long n)
+{
+	bigint	other(n);
+	this->_value = add(this->_value, other._value);
+	return (*this);
+}
 std::ostream	&operator<<(std::ostream &os, bigint const &other)
 {
 	os << other.getter();
