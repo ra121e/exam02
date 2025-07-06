@@ -20,5 +20,9 @@ int	main(void)
 	std::cout << "++b = " << ++b << std::endl; // ++b = 22
 	std::cout << "b++ = " << b++ << std::endl; // b++ = 22 (après cette ligne b = 23)
 	std::cout << "b = " << b << std::endl; // b = 21
+	std::cout << "(d == d) = " << (d == d) << std::endl; // (d == d) = 1
+	std::cout << "(d == d) = " << (d != d) << std::endl; // (d == d) = 1
+	std::cout << "(d != a) = " << (d != a) << std::endl; // (d != a) = 1
+	std::cout << "(d != a) = " << (d == a) << std::endl; // (d != a) = 1
 	return (0);
 }
