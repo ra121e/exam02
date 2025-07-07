@@ -142,7 +142,7 @@ std::string	bigint::leftShift(std::string s)
 
 std::string	bigint::rightShift(std::string s)
 {
-	s.erase(s.back());
+	s.erase(s.end() - 1);
 	return (s);
 }
 
@@ -151,6 +151,16 @@ bigint	bigint::operator<<(unsigned long long n)
 	unsigned long long i = 0;
 	while (i++ < n)
 		this->_value = leftShift(this->_value);
+	return (*this);
+}
+
+bigint	bigint::operator>>(unsigned long long n)
+{
+	if (this->_value.size() <= n)
+		return (this->_value = '0');
+	unsigned long long i = 0;
+	while (i++ < n)
+		this->_value = rightShift(this->_value);
 	return (*this);
 }
 

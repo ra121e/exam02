@@ -29,6 +29,10 @@ int	main(void)
 	std::cout << "(d <= a) = " << (d <= a) << std::endl; // (d <= a) = 0
 	std::cout << "(d >= a) = " << (d >= a) << std::endl; // (d >= a) = 1
 	std::cout << "(b << 10) + 42 = " << ((b << 10) + 42) << std::endl; // (b << 10) + 42 = (23 << 10) + 42 = 23566
+	std::cout << "b = " << b << std::endl; // b = 21
+	std::cout << "b += 42 " << (b += 42) << std::endl; // b = 21
+	std::cout << "(b >> 1) = " << (b >> 1) << std::endl; // (b << 10) + 42 = (23 << 10) + 42 = 23566
+	std::cout << "(b >> 14) = " << (b >> 14) << std::endl; // (b << 10) + 42 = (23 << 10) + 42 = 23566
 
 	return (0);
 }
