@@ -1,3 +1,4 @@
+#include <iostream>
 #include "vect2.hpp"
 
 vect2::vect2():
@@ -23,4 +24,34 @@ vect2	&vect2::operator=(vect2 const &other)
 		this->_y = other._y;
 	}
 	return (*this);
+}
+
+vect2	vect2::operator+(vect2 const &other) const
+{
+	vect2	tmp;
+	tmp._x = this->_x + other._x;
+	tmp._y = this->_x + other._y;
+	return (tmp);
+}
+
+vect2	vect2::operator-(vect2 const &other) const
+{
+	vect2	tmp;
+	tmp._x = this->_x - other._x;
+	tmp._y = this->_x - other._y;
+	return (tmp);
+}
+
+vect2	vect2::operator*(int k) const
+{
+	vect2	tmp;
+	tmp._x = this->_x * k;
+	tmp._y = this->_y * k;
+	return (tmp);
+}
+
+std::ostream	&operator<<(std::ostream &os, vect2 const &other)
+{
+	os << "{" << other._x << ", " << other._y << "}";
+	return (os);
 }
