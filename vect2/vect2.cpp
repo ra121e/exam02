@@ -143,6 +143,18 @@ vect2	&vect2::operator*=(int k)
 	this->_y = this->_y * k;
 	return (*this);
 }
+bool	vect2::operator==(vect2 const &other) const
+{
+	if (this->_x == other._x && this->_y == other._y)
+		return (true);
+	return (false);
+}
+bool	vect2::operator!=(vect2 const &other) const
+{
+	if (this->_x == other._x && this->_y == other._y)
+		return (false);
+	return (true);
+}
 
 std::ostream	&operator<<(std::ostream &os, vect2 const &other)
 {

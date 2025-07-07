@@ -42,5 +42,9 @@ int	main(void)
 	std::cout << "v2: " << v2 << std::endl;
 	v2 = 3 * v2;		// 9,18
 	std::cout << "3 * v2 " << v2 << std::endl;
+	std::cout << "v1 == v3: " << (v1 == v3) << std::endl;
+	std::cout << "v1 == v1: " << (v1 == v1) << std::endl;
+	std::cout << "v1 != v3: " << (v1 != v3) << std::endl;
+	std::cout << "v1 != v1: " << (v1 != v1) << std::endl;
 	return (0);
 }
