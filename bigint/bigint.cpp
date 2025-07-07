@@ -134,19 +134,39 @@ bool	bigint::operator<=(bigint const &other) const
 }
 
 // shift operation
-std::string	bigint::leftShift(std::string s)
+std::string	bigint::leftShift(std::string s) const
 {
 	s.push_back('0');
 	return (s);
 }
 
-std::string	bigint::rightShift(std::string s)
+std::string	bigint::rightShift(std::string s) const
 {
 	s.erase(s.end() - 1);
 	return (s);
 }
 
-bigint	bigint::operator<<(unsigned long long n)
+bigint	bigint::operator<<(unsigned long long n) const
+{
+	unsigned long long	i = 0;
+	bigint				tmp(*this);
+	while (i++ < n)
+		tmp._value = leftShift(tmp._value);
+	return (tmp);
+}
+
+bigint	bigint::operator>>(unsigned long long n) const
+{
+	bigint	tmp(*this);
+	if (tmp._value.size() <= n)
+		return (tmp._value = '0');
+	unsigned long long i = 0;
+	while (i++ < n)
+		tmp._value = rightShift(tmp._value);
+	return (tmp);
+}
+
+bigint	&bigint::operator<<=(unsigned long long n)
 {
 	unsigned long long i = 0;
 	while (i++ < n)
@@ -154,16 +174,18 @@ bigint	bigint::operator<<(unsigned long long n)
 	return (*this);
 }
 
-bigint	bigint::operator>>(unsigned long long n)
+bigint	&bigint::operator>>=(unsigned long long n)
 {
 	if (this->_value.size() <= n)
-		return (this->_value = '0');
-	unsigned long long i = 0;
-	while (i++ < n)
-		this->_value = rightShift(this->_value);
+		this->_value = '0';
+	else
+	{
+		unsigned long long i = 0;
+		while (i++ < n)
+			this->_value = rightShift(this->_value);
+	}
 	return (*this);
 }
-
 std::ostream	&operator<<(std::ostream &os, bigint const &other)
 {
 	os << other.getter();
