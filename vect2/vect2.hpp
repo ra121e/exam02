@@ -13,6 +13,7 @@ class vect2
 		vect2	operator-(vect2 const &other) const;
 		vect2	operator-() const;
 		vect2	operator*(int k) const;
+		friend vect2	operator*(int k, vect2 const &other);
 
 		int		&operator[](size_t i);
 		int		operator[](size_t i) const;

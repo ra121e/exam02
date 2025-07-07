@@ -37,5 +37,10 @@ int	main(void)
 	std::cout << "v1 *=42: -84, -168 " << v1 << std::endl;
 	v1[1] = 12;
 	std::cout << "v1[1]: " << v1[1] << std::endl;	std::cout << "v3[1]: " << v3[1] << std::endl;
+	std::cout << "v2: " << v2 << std::endl;
+	std::cout << "-v2: " << -v2 << std::endl;
+	std::cout << "v2: " << v2 << std::endl;
+	v2 = 3 * v2;		// 9,18
+	std::cout << "3 * v2 " << v2 << std::endl;
 	return (0);
 }

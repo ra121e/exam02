@@ -58,6 +58,14 @@ vect2	vect2::operator*(int k) const
 	return (tmp);
 }
 
+vect2	operator*(int k, vect2 const &other)
+{
+	vect2	tmp;
+	tmp._x = other._x * k;
+	tmp._y = other._y * k;
+	return (tmp);
+}
+
 int		&vect2::operator[](size_t i)
 {
 	if (i == 0)
