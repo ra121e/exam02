@@ -26,9 +26,9 @@ class bigint
 		bool	operator==(bigint const &other) const;
 		bool	operator!=(bigint const &other) const;
 		bool	operator<(bigint const &other) const;
-		bool	operator<=(bigint const &other) const;
-		bool	operator>(bigint const &other) const;
 		bool	operator>=(bigint const &other) const;
+		bool	operator>(bigint const &other) const;
+		bool	operator<=(bigint const &other) const;
 	private:
 		std::string _value;
 		static std::string	add(std::string num1, std::string num2);

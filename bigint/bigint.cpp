@@ -118,9 +118,9 @@ bool	bigint::operator<(bigint const &other) const
 	return (this->_value < other._value);
 }
 
-bool	bigint::operator<=(bigint const &other) const
+bool	bigint::operator>=(bigint const &other) const
 {
-	return (!(other < *this));
+	return (!(*this < other));
 }
 
 bool	bigint::operator>(bigint const &other) const
@@ -128,10 +128,11 @@ bool	bigint::operator>(bigint const &other) const
 	return (other < *this);
 }
 
-bool	bigint::operator>=(bigint const &other) const
+bool	bigint::operator<=(bigint const &other) const
 {
-	return (!(*this < other));
+	return (!(other < *this));
 }
+
 std::ostream	&operator<<(std::ostream &os, bigint const &other)
 {
 	os << other.getter();
