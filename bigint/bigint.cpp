@@ -133,6 +133,27 @@ bool	bigint::operator<=(bigint const &other) const
 	return (!(other < *this));
 }
 
+// shift operation
+std::string	bigint::leftShift(std::string s)
+{
+	s.push_back('0');
+	return (s);
+}
+
+std::string	bigint::rightShift(std::string s)
+{
+	s.erase(s.back());
+	return (s);
+}
+
+bigint	bigint::operator<<(unsigned long long n)
+{
+	unsigned long long i = 0;
+	while (i++ < n)
+		this->_value = leftShift(this->_value);
+	return (*this);
+}
+
 std::ostream	&operator<<(std::ostream &os, bigint const &other)
 {
 	os << other.getter();
