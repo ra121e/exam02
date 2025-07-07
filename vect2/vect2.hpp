@@ -15,6 +15,11 @@ class vect2
 
 		int		operator[](size_t i);
 
+		vect2	&operator++();
+		vect2	operator++(int);
+		vect2	&operator--();
+		vect2	operator--(int);
+
 		friend std::ostream	&operator<<(std::ostream &os, vect2 const &other);
 	private:
 		int	_x;

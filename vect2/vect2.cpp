@@ -60,6 +60,36 @@ int		vect2::operator[](size_t i)
 		throw std::out_of_range("index is out of range");
 }
 
+vect2	&vect2::operator++()
+{
+	this->_x++;
+	this->_y++;
+	return (*this);
+}
+
+vect2	vect2::operator++(int)
+{
+	vect2	tmp = *this;
+	this->_x++;
+	this->_y++;
+	return (tmp);
+}
+
+vect2	&vect2::operator--()
+{
+	this->_x--;
+	this->_y--;
+	return (*this);
+}
+
+vect2	vect2::operator--(int)
+{
+	vect2	tmp = *this;
+	this->_x--;
+	this->_y--;
+	return (tmp);
+}
+
 std::ostream	&operator<<(std::ostream &os, vect2 const &other)
 {
 	os << "{" << other._x << ", " << other._y << "}";

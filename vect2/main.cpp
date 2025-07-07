@@ -17,5 +17,12 @@ int	main(void)
 	std::cout << "v2: " << v2 << std::endl;
 	std::cout << "v3: " << v3 << std::endl;
 	std::cout << "v4: " << v4 << std::endl;
+
+	std::cout << v4++ << std::endl;	// 2,3
+	std::cout << "v4: " << v4 << std::endl;
+	std::cout << ++v4 << std::endl;	// 3,4
+	std::cout << v4-- << std::endl;	// 2,3
+	std::cout << "v4: " << v4 << std::endl;
+	std::cout << --v4 << std::endl;	// 1,2
 	return (0);
 }
