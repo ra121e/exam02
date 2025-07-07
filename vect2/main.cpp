@@ -24,5 +24,16 @@ int	main(void)
 	std::cout << v4-- << std::endl;	// 2,3
 	std::cout << "v4: " << v4 << std::endl;
 	std::cout << --v4 << std::endl;	// 1,2
+
+	std::cout << "v2: " << v2 << std::endl;
+	std::cout << "v3: " << v3 << std::endl;
+	v2+=v3;				// 2,4
+	std::cout << "v2+= " << v2 << std::endl;
+	std::cout << "v1: " << v1 << std::endl;
+	std::cout << "v2: " << v2 << std::endl;
+	v1-=v2;				// -2,-4
+	std::cout << "v1-=v2 " << v1 << std::endl;
+	v1 *= 42;			// -84,-168
+	std::cout << "v1 *=42: -84, -168 " << v1 << std::endl;
 	return (0);
 }
