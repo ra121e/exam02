@@ -10,5 +10,12 @@ int	main(void)
 	std::cout << "v2 " << v2 << std::endl;
 	std::cout << "v3 " << v3 << std::endl;
 	std::cout << "v4 " << v4 << std::endl;
+
+	std::cout << "v1: " << v1 << std::endl;
+	std::cout << "v1: " << "{" << v1[0] << ", " << v1[1] << "}" << std::endl; // should be the same as above
+
+	std::cout << "v2: " << v2 << std::endl;
+	std::cout << "v3: " << v3 << std::endl;
+	std::cout << "v4: " << v4 << std::endl;
 	return (0);
 }

@@ -50,6 +50,16 @@ vect2	vect2::operator*(int k) const
 	return (tmp);
 }
 
+int		vect2::operator[](size_t i)
+{
+	if (i == 0)
+		return (this->_x);
+	else if (i == 1)
+		return (this->_y);
+	else
+		throw std::out_of_range("index is out of range");
+}
+
 std::ostream	&operator<<(std::ostream &os, vect2 const &other)
 {
 	os << "{" << other._x << ", " << other._y << "}";
