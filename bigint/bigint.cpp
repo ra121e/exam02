@@ -11,8 +11,19 @@ bigint::bigint(unsigned long long n):
 	_value(std::to_string(n))
 {}
 
+std::string	bigint::removeLeadingZero(std::string const &s)
+{
+	if (s.empty() || s.find_first_not_of('0') == std::string::npos)
+		return ("0");
+	else
+	{
+		size_t	a = s.find_first_not_of('0');
+		return (s.substr(a));
+	}
+}
+
 bigint::bigint(std::string const &s):
-	_value(s)
+	_value(removeLeadingZero(s))
 {}
 
 bigint::bigint(bigint const &other):

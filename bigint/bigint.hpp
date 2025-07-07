@@ -38,6 +38,7 @@ class bigint
 		static std::string	add(std::string num1, std::string num2);
 		std::string			leftShift(std::string s) const;
 		std::string			rightShift(std::string s) const;
+		std::string			removeLeadingZero(std::string const &s);
 };
 
 std::ostream	&operator<<(std::ostream &os, bigint const &other);

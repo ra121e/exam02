@@ -6,11 +6,15 @@ int	main(void)
 {
 	bigint const a(42);
 	bigint	b(21), c, d(1337), e(d);
+	bigint	f("456");
+	bigint	g("000000003454");
 
 	std::cout << "a = " << a << std::endl;
 	std::cout << "b = " << b << std::endl;
 	std::cout << "c = " << c << std::endl;
 	std::cout << "d = " << d << std::endl;
+	std::cout << "f = " << f << std::endl;
+	std::cout << "g = " << g << std::endl;
 	std::cout << "a + b = " << a + b << std::endl;
 	std::cout << "b + a = " << b + a << std::endl;
 	std::cout << "a + 42 = " << a + 42 << std::endl;
