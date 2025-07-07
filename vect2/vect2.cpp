@@ -42,6 +42,14 @@ vect2	vect2::operator-(vect2 const &other) const
 	return (tmp);
 }
 
+vect2	vect2::operator-() const
+{
+	vect2	tmp;
+	tmp._x = -_x;
+	tmp._y = -_y;
+	return (*this);
+}
+
 vect2	vect2::operator*(int k) const
 {
 	vect2	tmp;
