@@ -10,7 +10,7 @@ class bigint
 	public:
 		bigint();
 		bigint(unsigned long long n);
-		bigint(std::string const &s);
+		// bigint(std::string const &s);
 		bigint(bigint const &other);
 		bigint	&operator=(bigint const &other);
 		~bigint();
@@ -18,9 +18,9 @@ class bigint
 		std::string const	&getter(void) const;
 
 		bigint	operator+(bigint const &other) const;
-		bigint	operator+(unsigned long long n) const;
+		// bigint	operator+(unsigned long long n) const;
 		bigint	&operator+=(bigint const &other);
-		bigint	&operator+=(unsigned long long n);
+		// bigint	&operator+=(unsigned long long n);
 		bigint	&operator++(void);
 		bigint	operator++(int);
 		bool	operator==(bigint const &other) const;
@@ -35,10 +35,9 @@ class bigint
 		bigint	&operator>>=(unsigned long long n);
 	private:
 		std::string _value;
-		static std::string	add(std::string num1, std::string num2);
 		std::string			leftShift(std::string s) const;
 		std::string			rightShift(std::string s) const;
-		std::string			removeLeadingZero(std::string const &s);
+		// std::string			removeLeadingZero(std::string const &s);
 };
 
 std::ostream	&operator<<(std::ostream &os, bigint const &other);
