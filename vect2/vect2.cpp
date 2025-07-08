@@ -66,6 +66,8 @@ vect2	operator*(int k, vect2 const &other)
 	return (tmp);
 }
 
+
+// no need to throw exception. else return (_y);
 int		&vect2::operator[](size_t i)
 {
 	if (i == 0)
@@ -130,12 +132,12 @@ vect2	&vect2::operator-=(vect2 const &other)
 	return (*this);
 }
 
-vect2	&vect2::operator*=(vect2 const &other)
-{
-	this->_x = this->_x * other._x;
-	this->_y = this->_y * other._y;
-	return (*this);
-}
+// vect2	&vect2::operator*=(vect2 const &other)
+// {
+// 	this->_x = this->_x * other._x;
+// 	this->_y = this->_y * other._y;
+// 	return (*this);
+// }
 
 vect2	&vect2::operator*=(int k)
 {

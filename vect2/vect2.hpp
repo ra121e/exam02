@@ -25,7 +25,7 @@ class vect2
 
 		vect2	&operator+=(vect2 const &other);
 		vect2	&operator-=(vect2 const &other);
-		vect2	&operator*=(vect2 const &other);
+//		vect2	&operator*=(vect2 const &other);
 		vect2	&operator*=(int	k);
 
 		bool	operator==(vect2 const &other) const;
