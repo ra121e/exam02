@@ -1,6 +1,33 @@
 #include <stdio.h>
 #include <unistd.h>
 
+char	**make_board(size_t width, size_t height)
+{
+	char	**board;
+
+	board = (char**)malloc(sizeof(char*) * height);
+	if (board == NULL)
+		return (NULL);
+	size_t	i = 0;
+	while (i < height)
+	{
+		board[i] = (char*)calloc(width, sizeof(char));
+		if (board[i] == NULL)
+		{
+			size_t	n = i;
+			while (n > 0)
+			{
+				free(board[n - 1]);
+				n--;
+			}
+			free(board);
+			return (NULL);
+		}
+		i++;
+	}
+	return (board);
+}
+
 int	main(int ac, char** av)
 {
 	size_t	width, height, iteration
