@@ -49,9 +49,12 @@ void	print_board(char **board, size_t width, size_t height)
 	{
 		for (size_t x = 0; x < width; x++)
 		{
-			printf("%c", board[y][x] ? '0' : '.'); // 初期値が '\0' の場合、. を表示
+			if (board[y][x])
+				write(1, "0", 1);
+			else
+				write(1, " ", 1);
 		}
-		printf("\n");
+		write(1,"$\n", 2);
 	}
 }
 enum e_cmd	input_check(char c)
