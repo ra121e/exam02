@@ -42,10 +42,28 @@ int	parse(char **av, size_t	*width, size_t *height, size_t *iteration)
 	*iteration = (size_t)i;
 	return (1);
 }
+void	print_board(char **board, size_t width, size_t height)
+{
+	for (size_t y = 0; y < height; y++)
+	{
+		for (size_t x = 0; x < width; x++)
+		{
+			printf("%c", board[y][x] ? board[y][x] : '.'); // 初期値が '\0' の場合、. を表示
+		}
+		printf("\n");
+	}
+}
+
+void	free_board(char **board, size_t height)
+{
+	for (size_t i = 0; i < height; i++)
+		free(board[i]);
+	free(board);
+}
 
 int	main(int ac, char** av)
 {
-	size_t	width, height, iteration
+	size_t	width, height, iteration;
 	char	**board;
 
 	if (ac != 4)
@@ -58,8 +76,9 @@ int	main(int ac, char** av)
 	board = make_board(width, height);
 	if (board == NULL)
 		return (1);
-	read_draw(board, width, height);
-	iterator(board, width, height, iteration);
-	free(board, height);
+//	read_draw(board, width, height);
+//	iterator(board, width, height, iteration);
+	print_board(board, width, height);
+	free_board(board, height);
 	return (0);
 }
