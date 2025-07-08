@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 char	**make_board(size_t width, size_t height)
 {
@@ -28,6 +29,16 @@ char	**make_board(size_t width, size_t height)
 	return (board);
 }
 
+int	parse(char **av, size_t	*width, size_t *height, size_t *iteration)
+{
+	if (!(atoi(av[1])) || !(atoi(av[2])) || !(atoi(av[3])))
+		return (0);
+	*width = (size_t)atoi(av[1]);
+	*height = (size_t)atoi(av[2]);
+	*iteration = (size_t)atoi(av[3]);
+	return (1);
+}
+
 int	main(int ac, char** av)
 {
 	size_t	width, height, iteration
@@ -39,6 +50,8 @@ int	main(int ac, char** av)
 		return (1);
 	}
 	if(!validate(ac, av))
+		return (1);
+	if (!parse(av, &width, &height, &iteration))
 		return (1);
 	board = make_board(width, height);
 	if (board == NULL)
