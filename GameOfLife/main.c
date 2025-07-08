@@ -125,17 +125,17 @@ void	free_board(char **board, size_t height)
 int	count(char ** board, size_t y, size_t x, size_t width, size_t height)
 {
 	int	count = 0;
-	for (size_t i = -1; i <= 1; ++i)
+	for (int i = -1; i <= 1; ++i)
 	{
-		for (size_t j = -1; j <= 1; ++j)
+		for (int j = -1; j <= 1; ++j)
 		{
 			if (i == 0 && j == 0)
 				continue;
-			int	nx = (int)x + i;
-			int	ny = (int)y + j;
+			int	ny = (int)y + i;
+			int	nx = (int)x + j;
 
 			if (ny >= 0 && nx >= 0 && nx < (int)width && ny < (int)height)
-				if (board[i][j] == 1)
+				if (board[ny][nx] == 1)
 					count++;
 		}
 	}
@@ -149,12 +149,11 @@ void	iterate(char **board, size_t width, size_t height, size_t iteration)
 	next = make_board(width, height);
 	for (size_t n = 0; n < iteration; ++n)
 	{
-		for (size_t y = 0; y < height - 1; ++y)
+		for (size_t y = 0; y < height; ++y)
 		{
-			for (size_t x = 0; x < width - 1; ++x)
+			for (size_t x = 0; x < width; ++x)
 			{
 				int	sum = count(board, y, x, width, height);
-
 				if (board[y][x] && (sum == 2 || sum == 3))
 					next[y][x] = 1;
 				else if (!(board[y][x]) && sum == 3)
@@ -167,9 +166,10 @@ void	iterate(char **board, size_t width, size_t height, size_t iteration)
 		tmp = board;
 		board = next;
 		next = tmp;
+		print_board(board, width, height);
 	}
-	print_board(board, width, height);
 	free_board(next, height);
+	free_board(board, height);
 }
 
 int	main(int ac, char** av)
@@ -188,8 +188,10 @@ int	main(int ac, char** av)
 	if (board == NULL)
 		return (1);
 	read_draw(board, width, height);
-	iterate(board, width, height, iteration);
-//	print_board(board, width, height);
-	free_board(board, height);
+	print_board(board, width, height);
+	if (iteration == 0)
+		free_board(board, height);
+	else
+		iterate(board, width, height, iteration);
 	return (0);
 }
