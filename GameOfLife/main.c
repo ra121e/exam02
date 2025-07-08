@@ -54,7 +54,7 @@ void	print_board(char **board, size_t width, size_t height)
 			else
 				write(1, " ", 1);
 		}
-		write(1,"$\n", 2);
+		write(1,"\n", 1);
 	}
 }
 enum e_cmd	input_check(char c)
