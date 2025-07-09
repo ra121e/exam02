@@ -2,16 +2,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-enum	e_cmd
-{
-	NONE,
-	LEFT,
-	UP,
-	RIGHT,
-	DOWN,
-	TOGGLE
-};
-
 char	**make_board(size_t width, size_t height)
 {
 	char	**board;
@@ -66,59 +56,44 @@ void	print_board(char **board, size_t width, size_t height)
 		write(1,"\n", 1);
 	}
 }
-enum e_cmd	input_check(char c)
-{
-	if (c == 'a')
-		return (LEFT);
-	else if (c == 'w')
-		return (UP);
-	else if (c == 'd')
-		return (RIGHT);
-	else if (c == 's')
-		return (DOWN);
-	else if (c == 'x')
-		return (TOGGLE);
-	else
-		return (NONE);
-}
 
 void	read_draw(char **board, size_t width, size_t height)
 {
-	enum e_cmd	type;
 	size_t		x = 0, y = 0;
 	int			pen = 0;
 	char		c;
 
 	while (read(0, &c, 1))
 	{
-		type = input_check(c);
-		switch (type)
+		if (c == 'a')
 		{
-			case LEFT:
-				if (x > 0)
-					x--;
-				break;
-			case UP:
-				if (y > 0)
-					y--;
-				break;
-			case RIGHT:
-				if (x < width - 1)
-					x++;
-				break;
-			case DOWN:
-				if (y < height - 1)
-					y++;
-				break;
-			case TOGGLE:
-				if (pen == 0)
-					pen = 1;
-				else
-					pen = 0;
-				break;
-			case NONE:
-				break;
+			if (x > 0)
+				x--;
 		}
+		else if (c == 'w')
+		{
+			if (y > 0)
+				y--;
+		}
+		else if (c == 'd')
+		{
+			if (x < width - 1)
+				x++;
+		}
+		else if (c == 's')
+		{
+			if (y < height - 1)
+				y++;
+		}
+		else if (c == 'x')
+		{
+			if (pen == 0)
+				pen = 1;
+			else
+				pen = 0;
+		}
+		else
+			continue ;
 		if (pen == 1)
 			board[y][x] = 1;
 	}
