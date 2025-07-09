@@ -1,7 +1,16 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include "main.h"
+
+enum	e_cmd
+{
+	NONE,
+	LEFT,
+	UP,
+	RIGHT,
+	DOWN,
+	TOGGLE
+};
 
 char	**make_board(size_t width, size_t height)
 {
@@ -179,7 +188,7 @@ int	main(int ac, char** av)
 
 	if (ac != 4)
 	{
-		printf("Usage: ./life width height iterations\n");
+//		printf("Usage: ./life width height iterations\n");
 		return (1);
 	}
 	if (!parse(av, &width, &height, &iteration))
