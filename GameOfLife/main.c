@@ -15,12 +15,8 @@ char	**make_board(size_t width, size_t height)
 		board[i] = (char*)calloc(width, sizeof(char));
 		if (board[i] == NULL)
 		{
-			size_t	n = i;
-			while (n > 0)
-			{
-				free(board[n - 1]);
-				n--;
-			}
+			for (size_t n = 0; n < i; ++n)
+				free(board[n]);
 			free(board);
 			return (NULL);
 		}
