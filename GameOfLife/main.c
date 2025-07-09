@@ -65,33 +65,16 @@ void	read_draw(char **board, size_t width, size_t height)
 
 	while (read(0, &c, 1))
 	{
-		if (c == 'a')
-		{
-			if (x > 0)
-				x--;
-		}
-		else if (c == 'w')
-		{
-			if (y > 0)
-				y--;
-		}
-		else if (c == 'd')
-		{
-			if (x < width - 1)
-				x++;
-		}
-		else if (c == 's')
-		{
-			if (y < height - 1)
-				y++;
-		}
+		if (c == 'a' && x > 0)
+			x--;
+		else if (c == 'w' && y > 0)
+			y--;
+		else if (c == 'd' && x < width - 1)
+			x++;
+		else if (c == 's' && y < height - 1)
+			y++;
 		else if (c == 'x')
-		{
-			if (pen == 0)
-				pen = 1;
-			else
-				pen = 0;
-		}
+			pen = !pen;
 		else
 			continue ;
 		if (pen == 1)
