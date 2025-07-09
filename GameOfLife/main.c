@@ -105,7 +105,7 @@ int	count(char ** board, size_t y, size_t x, size_t width, size_t height)
 	return (count);
 }
 
-void	iterate(char **board, size_t width, size_t height, size_t iteration)
+char	**iterate(char **board, size_t width, size_t height, size_t iteration)
 {
 	char	**next;
 
@@ -129,10 +129,8 @@ void	iterate(char **board, size_t width, size_t height, size_t iteration)
 		tmp = board;
 		board = next;
 		next = tmp;
-		print_board(board, width, height);
 	}
-	free_board(next, height);
-	free_board(board, height);
+	return (board);
 }
 
 int	main(int ac, char** av)
@@ -151,10 +149,16 @@ int	main(int ac, char** av)
 	if (board == NULL)
 		return (1);
 	read_draw(board, width, height);
-	print_board(board, width, height);
 	if (iteration == 0)
+	{
+		print_board(board, width, height);
 		free_board(board, height);
+	}
 	else
-		iterate(board, width, height, iteration);
+	{
+		char **last = iterate(board, width, height, iteration);
+		print_board(last, width, height);
+		free_board(last, height);
+	}
 	return (0);
 }
