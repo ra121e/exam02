@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <unistd.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -48,7 +49,7 @@ void	draw(char **board, int width, int height)
 		if (c == 'a' && x > 0)
 			x--;
 		else if (c == 'w' && y > 0)
-			y--;			
+			y--;
 		else if (c == 'd' && x < width - 1)
 			x++;
 		else if (c == 's' && y < height - 1)
@@ -69,11 +70,11 @@ void	print_board(char **board, int width, int height)
 		for (int x = 0; x < width; ++x)
 		{
 			if (board[y][x])
-				write(1, "0", 1);
+				putchar('0');
 			else
-				write(1, " ", 1);
+				putchar(' ');
 		}
-		write(1, "\n", 1);
+		putchar('\n');
 	}
 }
 
