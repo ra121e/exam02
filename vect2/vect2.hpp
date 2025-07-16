@@ -1,5 +1,8 @@
-#include <iostream>
-#include <cstddef>
+
+#ifndef VECT2_HPP
+# define VECT2_HPP
+
+# include <iostream>
 
 class vect2
 {
@@ -7,16 +10,14 @@ class vect2
 		vect2();
 		vect2(int x, int y);
 		vect2(vect2 const &other);
-		vect2	&operator=(vect2 const &other);
-
+		vect2	operator=(vect2 const &other);
+		~vect2();
+	
 		vect2	operator+(vect2 const &other) const;
 		vect2	operator-(vect2 const &other) const;
 		vect2	operator-() const;
 		vect2	operator*(int k) const;
 		friend vect2	operator*(int k, vect2 const &other);
-
-		int		&operator[](size_t i);
-		int		operator[](size_t i) const;
 
 		vect2	&operator++();
 		vect2	operator++(int);
@@ -25,8 +26,10 @@ class vect2
 
 		vect2	&operator+=(vect2 const &other);
 		vect2	&operator-=(vect2 const &other);
-//		vect2	&operator*=(vect2 const &other);
-		vect2	&operator*=(int	k);
+		vect2	&operator*=(int k);
+	
+		int		&operator[](int i);
+		int		operator[](int i) const;
 
 		bool	operator==(vect2 const &other) const;
 		bool	operator!=(vect2 const &other) const;
@@ -36,3 +39,7 @@ class vect2
 		int	_x;
 		int	_y;
 };
+
+
+
+#endif

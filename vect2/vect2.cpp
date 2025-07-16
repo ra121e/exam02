@@ -1,5 +1,6 @@
-#include <iostream>
 #include "vect2.hpp"
+#include <stdexcept>
+
 
 vect2::vect2():
 	_x(0),
@@ -16,9 +17,9 @@ vect2::vect2(vect2 const &other):
 	_y(other._y)
 {}
 
-vect2	&vect2::operator=(vect2 const &other)
+vect2	vect2::operator=(vect2 const &other)
 {
-	if (this != &other)
+	if(this != &other)
 	{
 		this->_x = other._x;
 		this->_y = other._y;
@@ -26,66 +27,47 @@ vect2	&vect2::operator=(vect2 const &other)
 	return (*this);
 }
 
+vect2::~vect2()
+{}
+
 vect2	vect2::operator+(vect2 const &other) const
 {
-	vect2	tmp;
-	tmp._x = this->_x + other._x;
-	tmp._y = this->_x + other._y;
-	return (tmp);
+	vect2	temp;
+	temp._x = this->_x + other._x;
+	temp._y = this->_y + other._y;
+	return (temp);
 }
 
 vect2	vect2::operator-(vect2 const &other) const
 {
-	vect2	tmp;
-	tmp._x = this->_x - other._x;
-	tmp._y = this->_x - other._y;
-	return (tmp);
+	vect2	temp;
+	temp._x = this->_x - other._x;
+	temp._y = this->_y - other._y;
+	return (temp);
 }
 
 vect2	vect2::operator-() const
 {
-	vect2	tmp;
-	tmp._x = -_x;
-	tmp._y = -_y;
-	return (tmp);
+	vect2	temp;
+	temp._x = -_x;
+	temp._y = -_y;
+	return (temp);
 }
 
 vect2	vect2::operator*(int k) const
 {
-	vect2	tmp;
-	tmp._x = this->_x * k;
-	tmp._y = this->_y * k;
-	return (tmp);
+	vect2	temp;
+	temp._x = this->_x * k;
+	temp._y = this->_y * k;
+	return (temp);
 }
 
 vect2	operator*(int k, vect2 const &other)
 {
-	vect2	tmp;
-	tmp._x = other._x * k;
-	tmp._y = other._y * k;
-	return (tmp);
-}
-
-
-// no need to throw exception. else return (_y);
-int		&vect2::operator[](size_t i)
-{
-	if (i == 0)
-		return (this->_x);
-	else if (i == 1)
-		return (this->_y);
-	else
-		throw std::out_of_range("index is out of range");
-}
-
-int		vect2::operator[](size_t i) const
-{
-	if (i == 0)
-		return (this->_x);
-	else if (i == 1)
-		return (this->_y);
-	else
-		throw std::out_of_range("index is out of range");
+	vect2	temp;
+	temp._x = other._x * k;
+	temp._y = other._y * k;
+	return (temp);
 }
 
 vect2	&vect2::operator++()
@@ -94,28 +76,25 @@ vect2	&vect2::operator++()
 	this->_y++;
 	return (*this);
 }
-
 vect2	vect2::operator++(int)
 {
-	vect2	tmp = *this;
+	vect2	temp = *this;
 	this->_x++;
 	this->_y++;
-	return (tmp);
+	return (temp);
 }
-
 vect2	&vect2::operator--()
 {
 	this->_x--;
 	this->_y--;
 	return (*this);
 }
-
 vect2	vect2::operator--(int)
 {
-	vect2	tmp = *this;
+	vect2	temp = *this;
 	this->_x--;
 	this->_y--;
-	return (tmp);
+	return (temp);
 }
 
 vect2	&vect2::operator+=(vect2 const &other)
@@ -124,38 +103,59 @@ vect2	&vect2::operator+=(vect2 const &other)
 	this->_y = this->_y + other._y;
 	return (*this);
 }
-
 vect2	&vect2::operator-=(vect2 const &other)
 {
 	this->_x = this->_x - other._x;
 	this->_y = this->_y - other._y;
 	return (*this);
 }
-
-// vect2	&vect2::operator*=(vect2 const &other)
-// {
-// 	this->_x = this->_x * other._x;
-// 	this->_y = this->_y * other._y;
-// 	return (*this);
-// }
-
 vect2	&vect2::operator*=(int k)
 {
 	this->_x = this->_x * k;
 	this->_y = this->_y * k;
 	return (*this);
 }
+
+int	&vect2::operator[](int i)
+{
+	if (i == 0)
+	{
+		return (this->_x);
+	}
+	else if (i == 1)
+	{
+		return (this->_y);
+	}
+	else
+		throw std::out_of_range("out of range");
+}
+int	vect2::operator[](int i) const
+{
+	if (i == 0)
+	{
+		return (this->_x);
+	}
+	else if (i == 1)
+	{
+		return (this->_y);
+	}
+	else
+		return (this->_y);
+}
+
 bool	vect2::operator==(vect2 const &other) const
 {
-	if (this->_x == other._x && this->_y == other._y)
+	if (this->_x == other._x || this->_y == other._y)
 		return (true);
-	return (false);
+	else
+		return (false);
 }
 bool	vect2::operator!=(vect2 const &other) const
 {
-	if (this->_x == other._x && this->_y == other._y)
+	if (this->_x == other._x || this->_y == other._y)
 		return (false);
-	return (true);
+	else
+		return (true);
 }
 
 std::ostream	&operator<<(std::ostream &os, vect2 const &other)

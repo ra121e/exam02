@@ -1,5 +1,5 @@
-// #include "vect2.hpp"
-#include "vec2.hpp"
+#include "vect2.hpp"
+//#include "vec2.hpp"
 #include <iostream>
 
 int main()
