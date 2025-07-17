@@ -1,7 +1,7 @@
 #include <string>
 #include <algorithm>
 #include <stdlib.h>
-#include "bigint.hpp"
+#include "bigint_origin.hpp"
 
 bigint::bigint():
 	_value("0")
