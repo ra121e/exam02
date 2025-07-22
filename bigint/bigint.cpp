@@ -101,6 +101,11 @@ bool    bigint::operator<=(bigint const &other) const
 bigint  bigint::operator<<(unsigned long long k) const //const
 {
     bigint  temp(*this);
+    if (temp._value == "0")
+    {
+        temp._value = "0";
+        return (temp);
+    }
     for (unsigned long long i = 0; i < k; ++i)
         temp._value.push_back('0');
     return (temp);
@@ -125,6 +130,11 @@ bigint  bigint::operator>>(unsigned long long k) const //const
 
 bigint  &bigint::operator<<=(unsigned long long k)
 {
+    if (this->_value == "0")
+    {
+        this->_value = "0";
+        return (*this);
+    }
     for (unsigned long long i = 0; i < k; ++i)
         this->_value.push_back('0');
     return (*this);

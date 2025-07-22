@@ -5,7 +5,7 @@
 int	main(void)
 {
 	const bigint a(42);
-	bigint b(21), c, d(1337), e(d);
+	bigint b(21), c, d(1337), e(d), g;
 
 	std::cout << "a = " << a << std::endl; // a = 42
 	std::cout << "b = " << b << std::endl; // b = 21
@@ -24,6 +24,7 @@ int	main(void)
 	std::cout << "(b << 10) + 42 = " << ((b << 10) + 42) << std::endl; // (b << 10) + 42 = (23 << 10) + 42 = 23566
 
 	std::cout << "(d <<= 4) = " << (d <<= 4) << std::endl; // d <<= 4 = 1337 * 16 = 21392
+	std::cout << "(g(0) <<= 4) = " << (g <<= 4) << std::endl; // d <<= 4 = 1337 * 16 = 21392
 
 	// Explicit cast of '2' to const bigint
 	std::cout << "(d >>= 2) = " << (d >>= (const bigint)2) << std::endl; // d >>= 2 = 21392 / 4 = 5348
