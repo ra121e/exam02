@@ -17,7 +17,7 @@ int	count_word(char *str, char delimiter)
 	return (count);
 }
 
-char	**ft_sprit(char *str, char delimiter)
+char	**ft_split(char *str, char delimiter)
 {
 	int		wordnum;
 	char	**words;
@@ -58,8 +58,9 @@ char	**ft_sprit(char *str, char delimiter)
 			{
 				for (int n = 0; n < box; n++)
 				{
-					free (words[n]);
+					free(words[n]);
 				}
+				free(words);
 				return (NULL);
 			}
 			i = 0;
@@ -89,8 +90,13 @@ int	main(int ac, char **av)
 		printf("Expected 2 arguments, string and delimiter\n");
 		return (1);
 	}
+	if (av[2] == NULL || av[2][0] == '\0')
+	{
+		printf("wrong delimiter: NULL \'\\0\' are prohibitted\n");
+		return (1);
+	}
 
-	words = ft_sprit(av[1], *av[2]);
+	words = ft_split(av[1], *av[2]);
 	if (words == NULL)
 		exit (1);
 	i = 0;
