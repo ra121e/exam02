@@ -1,115 +1,110 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: athonda <athonda@student.42singapore.sg    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/25 22:03:34 by athonda           #+#    #+#             */
-/*   Updated: 2024/07/26 15:42:39 by athonda          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-int	count_word(char *str)
+int	count_word(char *str, char delimiter)
 {
-	int	i;
 	int	count;
+	int	i;
 
-	count = 0;
+	count = 1;
 	i = 0;
-	while (str[i] != '\0')
+	while (str[i])
 	{
-		while (str[i] != '\0' && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
-			i++;
-		if (str[i] != '\0')
-		{
+		if (str[i] == delimiter)
 			count++;
-			while (str[i] != '\0' && (str[i] >= '!' && str[i] <= '~'))
-				i++;
-		}
+		i++;
 	}
 	return (count);
 }
 
-char	**ft_split(char *str)
+char	**ft_sprit(char *str, char delimiter)
 {
-	int	count;
-	int	i;
-	int	j;
-	int	k;
-	int	n;
-	int	start;
-	char	**word;
-
-	count = count_word(str);
-	if (count == 0)
-		return (NULL);
-	word = (char **)malloc(sizeof (char *) * (count + 1));
-	if (word == NULL)
-		return (NULL);
-	k = 0;
-	i = 0;
-	while (str[i] != '\0')
-	{
-		while (str[i] != '\0' && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
-			i++;
-		if (str[i] >= '!' && str[i] <= '~')
-		{
-			j = 0;
-			start = i;
-			while (str[i] != '\0' && (str[i] >= '!' && str[i] <= '~'))
-			{
-				i++;
-				j++;
-			}
-			word[k] = (char *)malloc(sizeof (char) * (j + 1));
-			if (word[k] == NULL)
-			{
-				while (k >= 0)
-				{
-					free(word[k]);
-					k--;
-				}
-				free(word);
-				return (NULL);
-			}
-			n = 0;
-			while (n < j)
-			{
-				word[k][n] = str[start + n];
-				n++;
-			}
-			word[k][n] = '\0';
-			k++;
-		}
-	}
-	word[k] = NULL;
-	return (word);
-}
-
-int	main(int argc, char **argv)
-{
-	char	**word;
+	int		wordnum;
+	char	**words;
+	int		head;
+	int		pos;
+	int		box;
 	int		i;
 
-	if (argc == 2)
+	wordnum	= count_word(str, delimiter);
+	printf("[debug] number of words is %d\n", wordnum);
+	words = malloc(sizeof(char*) * (wordnum + 1));
+	if (words == NULL)
+		return (NULL);
+
+	head = 0;
+	pos = 0;
+	box = 0;
+	while (str[head])
 	{
-		word = ft_split(argv[1]);
-		i = 0;
-		while (word[i])
+		if (str[head] == delimiter)
 		{
-			printf("%s\n", word[i]);
-			i++;
+//			words[box] = malloc(sizeof(char *));
+//			if (words[box] == NULL)
+//				return (NULL);
+//			*words[box] = '\0';
+//			box++;
+			head++;
 		}
-		while (i >= 0)
+		else
 		{
-			free(word[i]);
-			i--;
+			pos = head;
+			while (str[pos] != '\0' && str[pos] != delimiter)
+			{
+				pos++;
+			}
+			words[box] = malloc(sizeof(char) * (pos - head + 1));
+			if (words[box] == NULL)
+			{
+				for (int n = 0; n < box; n++)
+				{
+					free (words[n]);
+				}
+				return (NULL);
+			}
+			i = 0;
+			while (head < pos)
+			{
+				words[box][i] = str[head];
+				i++;
+				head++;
+			}
+			words[box][i] = '\0';
+			box++;
+//			head++;
 		}
-		free(word);
 	}
-	return (0);
+	words[box] = NULL;
+	return (words);
+}
+
+int	main(int ac, char **av)
+{
+	int		i;
+	char	**words;
+	int		n;
+
+	if (ac != 3)
+	{
+		printf("Expected 2 arguments, string and delimiter\n");
+		return (1);
+	}
+
+	words = ft_sprit(av[1], *av[2]);
+	if (words == NULL)
+		exit (1);
+	i = 0;
+	while (words && words[i])
+	{
+		printf("%s\n", words[i]);
+		i++;
+	}
+
+	n = 0;
+	while (words[n])
+	{
+		free(words[n]);
+		n++;
+	}
+	free(words);
 }
