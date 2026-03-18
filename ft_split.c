@@ -10,6 +10,19 @@ int	count_word(char *str, char delimiter)
 	i = 0;
 	while (str[i])
 	{
+		if (i == 0 && str[i] == delimiter)
+		{
+			i++;
+		}
+		else if (i >= 1 && str[i] == delimiter && str[i - 1] == delimiter)
+		{
+			i++;
+		}
+		else if (str[i] == delimiter && str[i + 1] == '\0')
+		{
+			i++;
+			continue ;
+		}
 		if (str[i] == delimiter)
 			count++;
 		i++;
