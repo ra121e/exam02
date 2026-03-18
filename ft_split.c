@@ -26,6 +26,8 @@ char	**ft_split(char *str, char delimiter)
 	int		box;
 	int		i;
 
+	if (str == NULL)
+		return (NULL);
 	wordnum	= count_word(str, delimiter);
 	printf("[debug] number of words is %d\n", wordnum);
 	words = malloc(sizeof(char*) * (wordnum + 1));
