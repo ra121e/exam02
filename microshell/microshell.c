@@ -1,8 +1,7 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
-#include <sys/wait.h>
+#include <unistd.h> //write, pipe, fork, dup2, execve
+#include <string.h> // strcmp
+#include <stdlib.h> // exit
+#include <sys/wait.h> //waitpid
 
 void	err(char* msg)
 {
@@ -12,9 +11,21 @@ void	err(char* msg)
 
 void	set_fd(int	fd[2], int end)
 {
-	dup2(fd[end], end);
-	close(fd[0]);
-	close(fd[1]);
+	if (dup2(fd[end], end) < 0)
+	{
+		err("error: fatal\n");
+		exit(1);
+	}
+	if (close(fd[0]) < 0)
+	{
+		err("error: fatal\n");
+		exit(1);
+	}
+	if (close(fd[1]) < 0)
+	{
+		err("error: fatal\n");
+		exit(1);
+	}
 }
 
 int	exec(char** av, int i, char** envp)
@@ -28,9 +39,12 @@ int	exec(char** av, int i, char** envp)
 	if (av[i] && !strcmp(av[i], "|"))
 	{
 		to_pipe = 1;
-		pipe(fd);
+		if (pipe(fd) < 0)
+		{
+			err("error: fatal\n");
+			exit(1);
+		}
 	}
-
 
 	pid = fork();
 	if (pid < 0)
@@ -44,6 +58,9 @@ int	exec(char** av, int i, char** envp)
 		if (to_pipe == 1)
 			set_fd(fd, 1);
 		execve(av[0], av, envp);
+		err("error: cannot execute ");
+		err(av[0]);
+		err("\n");
 		exit(1);
 	}
 	waitpid(pid, &status, 0);
