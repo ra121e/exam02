@@ -1,4 +1,4 @@
-#include <unistd.h> //write, pipe, fork, dup2, execve
+#include <unistd.h> //write, pipe, fork, dup2, execve, chdir
 #include <string.h> // strcmp
 #include <stdlib.h> // exit
 #include <sys/wait.h> //waitpid
@@ -34,6 +34,22 @@ int	exec(char** av, int i, char** envp)
 	int	pid;
 	int	to_pipe;
 	int	fd[2];
+
+	if (av[0] && !strcmp(av[0], "cd"))
+	{
+		if (i != 2)
+		{
+			err("error: cd: bad arguments\n");
+			return (1);
+		}
+		if (chdir(av[0]) < 0)
+		{
+			err("error: cd: cannot change directory to ");
+			err(av[1]);
+			err("\n");
+			return (1);
+		}
+	}
 
 	to_pipe = 0;
 	if (av[i] && !strcmp(av[i], "|"))
